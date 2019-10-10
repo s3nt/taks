@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
+import Layout from './hoc/Layout/Layout';
+import Login from './containers/Login/Login';
+import Cart from './containers/Cart/Cart';
+import Market from './containers/Market/Market';
+import * as actionCreators from './store/actions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+
+  componentDidMount() {
+    if (localStorage.getItem('Password') && localStorage.getItem('LogIn')) {
+      this.props.onLoggedIn();
+    }
+  }
+
+  render () {
+    
+    return (
+      <div>
+        
+        <Layout>
+          <Route exact path="/" render={() => <Redirect to='/login'/>} />
+          <Route path="/login" component={Login} />
+          <Route path="/cart" component={Cart} />
+          <Route path="/market" component={Market} />
+        </Layout>  
+      </div>  
+      
+    );
+  }
+  
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+      oldState: state,
+      isLogged: state.isLoggedIn
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      onLoggedIn: () => dispatch(actionCreators.checkLogInFromLocalStorageAsync())
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

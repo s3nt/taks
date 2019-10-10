@@ -1,0 +1,33 @@
+.Cart {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.CartItem {
+    width: 50%;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 50px;
+}
+
+.Button {
+    background-color: #fa7272;
+    border: none;
+    transition: .3s ease-in;
+}
+
+.Button:hover {
+    background-color: #ff5151;
+    border: none;
+    color: white;
+}
+
+.Link {
+    color: #4699b3;
+    text-decoration: none;
+}
